@@ -37,6 +37,9 @@ public class RunApple3 {
 
         Predicate<Apple> ap = apple -> apple.getColor().equals(Color.RED);
         System.out.println("ap = " + ap);
+
+        Predicate<Apple> applePredicate = s -> s.getColor().equals(Color.RED);
+
     }
 }
 
