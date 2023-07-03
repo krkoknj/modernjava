@@ -14,4 +14,10 @@ class RunApple3Test {
         Apple ap = new Apple(100);
         System.out.println(a.test(ap));
     }
+    @Test
+    void test1() {
+        Predicate<Apple> a = (s) -> s.getWeight() == 100;
+        Apple ap = new Apple(101);
+        System.out.println(a.test(ap));
+    }
 }
