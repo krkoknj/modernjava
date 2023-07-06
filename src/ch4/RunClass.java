@@ -1,5 +1,6 @@
 package ch4;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,25 @@ public class RunClass {
         Temp tmp = new Temp();
         Temp temp = tmp.setAndGetTemp(1, 3).setB(5);
         System.out.println(tmp == temp);
+
+        List<Dish> vegetarianDishes = new ArrayList<>();
+        for (Dish d : menu) {
+            if (d.isVegetarian()) {
+                vegetarianDishes.add(d);
+            }
+        }
+        System.out.println("vegetarianDishes = " + vegetarianDishes);
+
+        List<Dish> collect1 = menu.stream()
+                .filter(Dish::isVegetarian)
+                .collect(Collectors.toList());
+        System.out.println("collect1 = " + collect1);
+
+        List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
+        numbers.stream()
+                .filter(i -> i % 2 == 0)
+                .distinct()
+                .forEach(System.out::println);
     }
 }
 
