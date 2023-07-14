@@ -1,56 +1,41 @@
 package ch4;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.text.Collator;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class RunClass {
     public static void main(String[] args) {
         List<Dish> menu = Dish.menu;
-        List<String> collect = menu.stream()
-                .filter(dish -> {
-                    System.out.println("filtering : " + dish.getName());
-                    return dish.getCalories() > 300;
-                })
-                .map(dish -> {
-                    System.out.println("mapping : " + dish.getName());
-                    return dish.getName();
-                })
-                .limit(3)
-                .collect(Collectors.toList());
-        System.out.println("collect = " + collect);
-
-        Stream.of("one", "two", "three", "four")
-                .filter(e -> e.length() > 3)
-                .peek(e -> System.out.println("Filtered value: " + e))
-                .map(String::toUpperCase)
-                .peek(e -> System.out.println("Mapped value: " + e))
-                .collect(Collectors.toList());
-
-        Temp tmp = new Temp();
-        Temp temp = tmp.setAndGetTemp(1, 3).setB(5);
-        System.out.println(tmp == temp);
-
-        List<Dish> vegetarianDishes = new ArrayList<>();
-        for (Dish d : menu) {
-            if (d.isVegetarian()) {
-                vegetarianDishes.add(d);
+        menu.stream().forEach(s -> {
+            System.out.println("name = " + s.getName() + ", cal = "+ s.getCalories());
+        });
+        List<Dish> lowCaloricDishes = new ArrayList<>();
+        for (Dish dish : menu) {
+            if (dish.getCalories() < 400) {
+                lowCaloricDishes.add(dish);
             }
         }
-        System.out.println("vegetarianDishes = " + vegetarianDishes);
+        System.out.println("lowCaloricDishes = " + lowCaloricDishes);
+        Collections.sort(lowCaloricDishes, new Comparator<Dish>() {
+            @Override
+            public int compare(Dish o1, Dish o2) {
+                return Integer.compare(o1.getCalories(), o2.getCalories());
+            }
+        });
+        List<String> lowCalDishName = new ArrayList<>();
+        for (Dish dish : lowCaloricDishes) {
+            lowCalDishName.add(dish.getName());
+        }
+        System.out.println("lowCalDishName = " + lowCalDishName);
 
-        List<Dish> collect1 = menu.stream()
-                .filter(Dish::isVegetarian)
+        List<String> collect = menu.stream()
+                .filter(d -> d.getCalories() < 400)
+                .sorted(Comparator.comparing(Dish::getCalories))
+                .map(Dish::getName)
                 .collect(Collectors.toList());
-        System.out.println("collect1 = " + collect1);
-
-        List<Integer> numbers = Arrays.asList(1, 2, 1, 3, 3, 2, 4);
-        numbers.stream()
-                .filter(i -> i % 2 == 0)
-                .distinct()
-                .forEach(System.out::println);
+        System.out.println("collect = " + collect);
     }
 }
 
