@@ -26,7 +26,6 @@ public class Ex14_9 {
                 newList.add(i);
             }
         }
-
         return newList;
     }
 
