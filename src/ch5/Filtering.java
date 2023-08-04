@@ -4,13 +4,14 @@ import ch4.Dish;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
 public class Filtering {
     public static void main(String[] args) {
-        System.out.println("Start - Filtering with a predicate");
+        /*System.out.println("Start - Filtering with a predicate");
         List<Dish> vegetarianMenu = menu.stream()
                 .filter(Dish::isVegetarian)
                 .collect(toList());
@@ -54,7 +55,9 @@ public class Filtering {
                 .filter(d -> Dish.Type.MEAT == d.getType())
                 .skip(2)
                 .collect(toList());
-        System.out.println("collect1 = " + collect1);
+        System.out.println("collect1 = " + collect1);*/
+        Integer reduce = menu.stream().map(d -> 1).reduce(0, (a, b) -> a + b);
+        System.out.println("reduce = " + reduce);
     }
 
     public static final List<Dish> menu = Arrays.asList(
